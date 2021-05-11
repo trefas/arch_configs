@@ -1,0 +1,77 @@
+general {
+  output_format = "i3bar"
+  markup = pango
+  colors = true
+  color_good = "#24B396"
+  color_degraded = "#FFD631"
+  color_bad = "#DD5B7E"
+  interval = 5
+}
+order += "disk /"
+order += "battery 0"
+order += "disk /home"
+order += "cpu_temperature 0"
+order += "cpu_usage"
+order += "memory"
+order += "tztime local"
+order += "volume master"
+order += "wireless _first_"
+
+battery 0 {
+        format = "<span background='#017872'></span><span background='#ffffff' foreground='#000000'> %status %percentage </span>"
+        last_full_capacity = true
+        status_chr = "" # статус подзарядки
+        status_bat = "" # статус в режиме работы от батареи
+        status_full = "" # статус полного заряда
+        path = "/sys/class/power_supply/BAT1/uevent"
+        low_threshold = 20
+        separator = false
+        separator_block_width = 0
+}
+disk "/" {
+        format = "<span foreground='#017872'></span><span background='#017872' foreground='#000000'>  /:%free </span>"
+        separator = false
+        separator_block_width = 0
+}
+disk "/home" {
+        format = "<span background='#ffffff' foreground='#980000'></span><span background='#980000' foreground='#ffffff'>  /home:%free </span>"
+        separator = false
+        separator_block_width = 0
+}
+cpu_temperature 0 {
+        format = "<span background='#980000' foreground='#BD6636'></span><span background='#BD6636' foreground='#0C0C0C'>  TEM:%degrees°C </span>"
+        separator = false
+        separator_block_width = 0
+}
+cpu_usage {
+        format = "<span background='#BD6636' foreground='#009900'></span><span background='#009900' foreground='#0C0C0C'>  CPU:%usage </span>"
+        separator = false
+        separator_block_width = 0
+}
+memory {
+        format = "<span background='#009900' foreground='#4F4FB3'></span><span background='#4F4FB3' foreground='#0C0C0C'>  MEM:%percentage_used </span>"
+        threshold_degraded = "1.4G"
+        format_degraded = "MEM %used"
+        separator = false
+        separator_block_width = 0
+}
+tztime local {
+	format = "<span background='#4F4FB3' foreground='#ffff00'></span><span background='#ffff00' foreground='#000000' > %time </span>"
+        format_time = " %a %-d %b |  %H:%M"
+        separator = false
+        separator_block_width = 0
+}
+volume master {
+        format = "<span background='#ffff00' foreground='#80007e'></span><span background='#80007e' foreground='#ffffff'>  %volume </span>"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+        separator = false
+        separator_block_width = 0
+}
+wireless _first_ {
+        format_up =   "<span background='#80007e' foreground='#457DC0'></span><span background='#457DC0' foreground='#0C0C0C' > %quality %essid </span>"
+        format_down = "<span background='#80007e' foreground='#980000'></span><span background='#980000' foreground='#0C0C0C' >  down </span>"
+        separator = false
+        separator_block_width = 0
+}
